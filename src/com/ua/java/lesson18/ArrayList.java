@@ -14,9 +14,9 @@ public class ArrayList <T> implements List <T> {
 
     public ArrayList(int capacity) {
         if(capacity > 0 && capacity < 1000_000) {
-            array = (T[]) new Object[capacity];
+            array = createArray(capacity);
         } else {
-            array = (T[]) new Object[INITIAL_CAPACITY];
+            array = createArray(INITIAL_CAPACITY);
         }
     }
 
@@ -39,7 +39,7 @@ public class ArrayList <T> implements List <T> {
 
     public Integer indexOf(T value) {
 
-        for(int i = 0; i<size; i++) {
+        for(int i = 0; i < size; i++) {
             if(value.equals(array[i])) {
                 return i;
             }
@@ -47,10 +47,6 @@ public class ArrayList <T> implements List <T> {
         return null;
     }
 
-   // 0 [1]
-   // [1,2,3,4,5, , , ,]
-   // [1,2,3,4,5,5, , ,] i = 4
-   // [1,2,3,4,4,5, , ,] i = 3
    public void add(int index, T value) {
         if(array.length == 0) {
             array = (T[]) new Object[INITIAL_CAPACITY];
@@ -63,11 +59,9 @@ public class ArrayList <T> implements List <T> {
         size++;
    }
 
-   // [1,2,3,4, , , ,] 0
-   // [2,3,4,4, , , ,] 0
    public void remove(int index) {
 
-        for(int i = index; i< size; i++ ) {
+        for(int i = index; i < size; i++ ) {
             array[i] = array[i+1];
         }
         array[size-1] = null;
@@ -75,14 +69,15 @@ public class ArrayList <T> implements List <T> {
    }
 
    public void clear() {
-        array = (T[]) new Object[0];
+        array = createArray(INITIAL_CAPACITY);
         size = 0;
    }
 
    public void remove(T value) {
-        for(int i=0; i < size; i++ ) {
+        for(int i = 0; i < size; i++ ) {
             if(value.equals(array[i])) {
                 this.remove(i);
+                break;
             }
         }
    }
@@ -90,9 +85,9 @@ public class ArrayList <T> implements List <T> {
     private void increaseArray() {
 
         int newCapacity = size * 2;
-        T[] newArray = (T[]) new Object[newCapacity];
+        T[] newArray = createArray(newCapacity);
 
-        for(int i = 0; i<size; i++ ) {
+        for(int i = 0; i < size; i++ ) {
             newArray[i] = array[i];
         }
 
@@ -108,17 +103,19 @@ public class ArrayList <T> implements List <T> {
         return null;
     }
 
+    public void set(int index, T value) {
+        array[index] = value;
+    }
+
     public String toString() {
-
-        if(isEmpty()) {
-            return "[]";
-        }
-
         String out = "[";
-        for(int i=0; i< size; i++) {
+
+        for(int i=0; i < size; i++) {
             out += array[i] + ", ";
         }
-        out = out.substring(0, out.length() -2);
+        if(out.length() > 1) {
+            out = out.substring(0, out.length() -2);
+        }
         out += "]";
         return out;
     }
@@ -132,6 +129,11 @@ public class ArrayList <T> implements List <T> {
             return true;
         }
         return false;
+    }
+
+    private T[] createArray(int capacity) {
+        array = (T[]) new Object[capacity];
+        return array;
     }
 
 }

@@ -4,6 +4,8 @@ public interface List<T> {
 
         void add(T value);
 
+        void set(int index, T value);
+
         void add(int index, T value);
 
         Integer indexOf(T value);
