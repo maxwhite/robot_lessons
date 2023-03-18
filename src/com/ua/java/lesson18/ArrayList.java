@@ -9,7 +9,7 @@ public class ArrayList <T> implements List <T> {
     private T[] array;
 
     public ArrayList() {
-        array = (T[]) new Object[INITIAL_CAPACITY];
+        array = createArray(INITIAL_CAPACITY);
     }
 
     public ArrayList(int capacity) {
@@ -49,7 +49,7 @@ public class ArrayList <T> implements List <T> {
 
    public void add(int index, T value) {
         if(array.length == 0) {
-            array = (T[]) new Object[INITIAL_CAPACITY];
+            array = createArray(INITIAL_CAPACITY);
         }
 
         for(int i = size; i >= index; i--) {
@@ -132,8 +132,7 @@ public class ArrayList <T> implements List <T> {
     }
 
     private T[] createArray(int capacity) {
-        array = (T[]) new Object[capacity];
-        return array;
+        return (T[]) new Object[capacity];
     }
 
 }

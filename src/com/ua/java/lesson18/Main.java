@@ -32,10 +32,9 @@ public class Main {
 
         System.out.println(students);
 
-
         List<Integer> arrayList = new ArrayList();
 
-        for(int i=1; i<11; i++) {
+        for(int i = 1; i < 11; i++) {
             arrayList.add(i);
         }
 
